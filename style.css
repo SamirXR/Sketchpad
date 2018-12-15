@@ -46,8 +46,11 @@ header {
 
 #splash {
   background-color: #F19CC5;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   padding: 40px;
   border-top: 10px solid var(--secondary);
   overflow: auto;
@@ -57,7 +60,6 @@ header {
 }
 
 #splash.hidden {
-  display: none;
   transform: translate3d(0, -200%, 0);
 }
 
