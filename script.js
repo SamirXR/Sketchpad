@@ -50,6 +50,7 @@ const sketch = function(p) {
     selectModels.addEventListener('change', () => initModel(selectModels.selectedIndex));
     btnClear.addEventListener('click', restart);
     btnRetry.addEventListener('click', retryMagic);
+    btnGo.addEventListener();
   };
   
   p.windowResized = function () {
