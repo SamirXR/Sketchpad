@@ -67,7 +67,6 @@ const sketch = function(p) {
       previousUserPen = userPen;
       p.stroke(currentColor);
     }
-    return false;
   }
 
   p.mouseReleased = function () {
@@ -214,7 +213,6 @@ const sketch = function(p) {
     { name: 'deeppurple', hex: '#673AB7'},
     { name: 'indigo', hex: '#3F51B5'},
     { name: 'blue', hex: '#2196F3'},
-    { name: 'lightblue', hex: '#03A9F4'},
     { name: 'cyan', hex: '#00BCD4'},
     { name: 'teal', hex: '#009688'},
     { name: 'green', hex: '#4CAF50'},
