@@ -1,5 +1,5 @@
-2html, body {
-  height: 90%;
+html, body {
+  height:1090%;
   width: 100%;
   overflow: hidden;
   margin: 0;
@@ -47,9 +47,9 @@ header .top {
   padding-bottom: 14px;
 }
 
-#colorsContainer button 
+#colorsContainer button {
   width: 20px;
-  height: 20px;;
+  height: 20px;
   border: 4px solid transparent;
   border-radius: 50%;
   margin: 0;
