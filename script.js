@@ -103,6 +103,7 @@ const sketch = function(p) {
       }
       previousUserPen = userPen;
     }
+    return false;
   }
 
  /*
