@@ -44,19 +44,16 @@ const sketch = function(p) {
     selectModels.addEventListener('change', () => initModel(selectModels.selectedIndex));
     btnClear.addEventListener('click', restart);
     btnColor.addEventListener('click', () => {
-      if (colorsContainer.classList.contains('hidden'))
-        colorsContainer.classList.remove('hidden');
-      else 
-        colorsContainer.classList.add('hidden');
-      currentColor = randomColor()
+      const color = randomColorIndex();
+      currentColor = COLORS[color].hex;
+      document.querySelector('.active').classList.remove('active');
+      document.querySelector(`button[data-index="${color}"]`).classList.add('active');
     });
     colorsContainer.addEventListener('click', (event) => {
       const btn = event.path[0];
       currentColor = COLORS[btn.dataset.index].hex;
       document.querySelector('.active').classList.remove('active');
       btn.classList.add('active');
-      event.preventDefault();
-      event.stopImmediatePropagation();
     });
   };
   
@@ -216,7 +213,7 @@ const sketch = function(p) {
     previousPen = [s[2], s[3], s[4]];
 
     modelIsActive = true;
-    p.stroke(randomColor());
+    //p.stroke(randomColor());
   }
   
   /*
@@ -246,6 +243,9 @@ const sketch = function(p) {
   
   function randomColor() {
     return COLORS[Math.floor(Math.random() * COLORS.length)].hex
+  }
+  function randomColorIndex() {
+    return Math.floor(Math.random() * COLORS.length);
   }
 
 };
