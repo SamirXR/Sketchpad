@@ -23,7 +23,7 @@ const sketch = function(p) {
   let currentRawLine = [];
   let userPen = 0; // above = 0 or below = 1 the paper.
   let previousUserPen = 0;
-  let currentColor = 'black';
+  currentColor = 'black';
   
   /*
    * Main p5 code
@@ -34,7 +34,7 @@ const sketch = function(p) {
     const screenWidth = Math.floor(containerSize.width);
     const screenHeight = Math.floor(containerSize.height);
     p.createCanvas(screenWidth, screenHeight);
-    p.frameRate(60);
+    p.frameRate(120);
 
     restart();
     initModel(22);  // Cat!
@@ -43,12 +43,6 @@ const sketch = function(p) {
     selectModels.selectedIndex = 22; 
     selectModels.addEventListener('change', () => initModel(selectModels.selectedIndex));
     btnClear.addEventListener('click', restart);
-    colorsContainer.addEventListener('click', (event) => {
-      const btn = event.path[0];
-      currentColor = COLORS[btn.dataset.index].hex;
-      document.querySelector('.active').classList.remove('active');
-      btn.classList.add('active');
-    });
   };
   
   p.windowResized = function () {
@@ -97,7 +91,7 @@ const sketch = function(p) {
     if (!modelIsActive && p.isInBounds()) {
       const dx0 = p.mouseX - x; 
       const dy0 = p.mouseY - y;
-      if (dx0*dx0+dy0*dy0 > epsilon*epsilon) { // Only if pen is not in same area.
+      //if (dx0*dx0+dy0*dy0 > epsilon*epsilon) { // Only if pen is not in same area.
         dx = dx0;
         dy = dy0;
         userPen = 1;
@@ -109,7 +103,7 @@ const sketch = function(p) {
         currentRawLine.push([x, y]);
       }
       previousUserPen = userPen;
-    }
+    //}
   }
 
  /*
@@ -241,7 +235,16 @@ const sketch = function(p) {
   function randomColorIndex() {
     return Math.floor(Math.random() * COLORS.length);
   }
+  p.updateCurrentColor = function(index) {
+    currentColor = COLORS[index].hex;
+  }
 
 };
 
-new p5(sketch, 'sketch');
+const p5Sketch = new p5(sketch, 'sketch');
+function changeColor(event){
+  const btn = event.target;
+  p5Sketch.updateCurrentColor(btn.dataset.index);
+  document.querySelector('.active').classList.remove('active');
+  btn.classList.add('active');
+}
