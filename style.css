@@ -1,30 +1,46 @@
 body {
   font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
-  margin: 2em;
+  margin: 0;
+  padding: 0;
+  --primary: #4545CC;
+  --secondary: #8EE3C8;
 }
 
 * { box-sizing: border-box; }
 
-h1 {
-  font-style: italic;
-  color: #373fff;
-}
+header {
+  background-color: #F19CC5;
+  box-shadow: 0px 5px 0px 1px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  padding: 22px 50px 22px 22px;
 
-footer {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 }
 
-button.icon {
-  background: transparent;
-  margin: 0;
-  padding: 24px;
-  border: solid hotpink 2px;
-  color: hotpink;
-  border-radius: 5px;
+.box {
+  border: solid var(--primary) 2px;
+  color: var(--primary);
+  fill: var(--primary);
   background: white;
-  -webkit-box-shadow: 4px 4px 0 hotpink;
-  box-shadow: 4px 4px 0 hotpink;
+  box-shadow: 4px 4px 0 var(--primary);
+  margin: 0 24px;
+  height: 40px;  
+  border-radius: 5px;
+}
+
+.box:active {
+  box-shadow: none;
+  margin-top: 4px;
+  margin-left: 4px;
+}
+
+button.icon {
+  cursor: pointer;
+}
+
+select {
+  font-size: 24px;
 }
