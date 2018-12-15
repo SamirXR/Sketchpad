@@ -50,7 +50,13 @@ const sketch = function(p) {
     selectModels.addEventListener('change', () => initModel(selectModels.selectedIndex));
     btnClear.addEventListener('click', restart);
     btnRetry.addEventListener('click', retryMagic);
-    btnGo.addEventListener();
+    // btnHelp.addEventListener('click', () => {
+    //   splash.classList.remove('hidden');
+    // });
+    // btnGo.addEventListener('click', () => {
+    //   loaded.classList.remove('hidden');
+    //   splash.classList.add('hidden');
+    // });
   };
   
   p.windowResized = function () {
