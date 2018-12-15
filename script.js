@@ -1,13 +1,11 @@
 
 const sketch = function(p) {
-  // Available SketchRNN models.
   const BASE_URL = 'https://storage.googleapis.com/quickdraw-models/sketchRNN/models/';
   const availableModels = ['bird', 'ant','ambulance','angel','alarm_clock','antyoga','backpack','barn','basket','bear','bee','beeflower','bicycle','book','brain','bridge','bulldozer','bus','butterfly','cactus','calendar','castle','cat','catbus','catpig','chair','couch','crab','crabchair','crabrabbitfacepig','cruise_ship','diving_board','dog','dogbunny','dolphin','duck','elephant','elephantpig','everything','eye','face','fan','fire_hydrant','firetruck','flamingo','flower','floweryoga','frog','frogsofa','garden','hand','hedgeberry','hedgehog','helicopter','kangaroo','key','lantern','lighthouse','lion','lionsheep','lobster','map','mermaid','monapassport','monkey','mosquito','octopus','owl','paintbrush','palm_tree','parrot','passport','peas','penguin','pig','pigsheep','pineapple','pool','postcard','power_outlet','rabbit','rabbitturtle','radio','radioface','rain','rhinoceros','rifle','roller_coaster','sandwich','scorpion','sea_turtle','sheep','skull','snail','snowflake','speedboat','spider','squirrel','steak','stove','strawberry','swan','swing_set','the_mona_lisa','tiger','toothbrush','toothpaste','tractor','trombone','truck','whale','windmill','yoga','yogabicycle'];
   let model;
 
-  // Model state.
-  let modelState; // Store the hidden states of rnn's neurons.
-  const temperature = 0.01; // Controls the amount of uncertainty of the model.
+  let modelState; 
+  const temperature = 0.01; // Very low so that we draw very well.
   let modelLoaded = false;
   let modelIsActive = false;
 
@@ -22,22 +20,35 @@ const sketch = function(p) {
   const epsilon = 2.0; // to ignore data from user's pen staying in one spot.
 
   let currentRawLine = [];
+  
   /*
    * Main p5 code
    */
   p.setup = function() {
-    const containerSize = document.getElementById('sketch').getBoundingClientRect();
     // Initialize the canvas.
+    const containerSize = document.getElementById('sketch').getBoundingClientRect();
     const screenWidth = Math.floor(containerSize.width);
-    const screenHeight = p.windowHeight / 2;
+    const screenHeight = Math.floor(containerSize.height);
     p.createCanvas(screenWidth, screenHeight);
     p.frameRate(60);
 
     restart();
-    initModel(0);
-    initDOMElements();
+    initModel(22);  // Cat!
+    
+    selectModels.innerHTML = availableModels.map(m => `<option>${m}</option>`).join('');
+    selectModels.selectedIndex = 22; 
+    selectModels.addEventListener('change', () => initModel(selectModels.selectedIndex));
+    btnClear.addEventListener('click', restart);
   };
-
+  
+  p.windowResized = function () {
+    console.log('resize canvas');
+    const containerSize = document.getElementById('sketch').getBoundingClientRect();
+    const screenWidth = Math.floor(containerSize.width);
+    const screenHeight = Math.floor(containerSize.height);
+    p.resizeCanvas(screenWidth, screenHeight);
+  };
+  
   /*
   * Human is drawing.
   */
@@ -64,8 +75,7 @@ const sketch = function(p) {
       if (currentRawLineSimplified.length > 1) {
         // Encode this line as a stroke, and feed it to the model.
         const stroke = model.lineToStroke(currentRawLineSimplified, [startX, startY]);
-
-        initRNNStateFromStrokes(stroke);
+        encodeStrokes(stroke);
       }
       currentRawLine = [];
     }
@@ -75,14 +85,14 @@ const sketch = function(p) {
 
   p.mouseDragged = function () {
     if (!modelIsActive && p.isInBounds()) {
-      const dx0 = p.mouseX - x; // Candidate for dx.
-      const dy0 = p.mouseY - y; // Candidate for dy.
+      const dx0 = p.mouseX - x; 
+      const dy0 = p.mouseY - y;
       if (dx0*dx0+dy0*dy0 > epsilon*epsilon) { // Only if pen is not in same area.
         dx = dx0;
         dy = dy0;
         userPen = 1;
         if (previousUserPen == 1) {
-          p.line(x, y, x+dx, y+dy); // draw line connecting prev point to current point.
+          p.line(x, y, x+dx, y+dy);
         }
         x += dx;
         y += dy;
@@ -99,6 +109,7 @@ const sketch = function(p) {
     if (!modelLoaded || !modelIsActive) {
       return;
     }
+    
     // New state.
     pen = previousPen;
     modelState = model.update([dx, dy, ...pen], modelState);
@@ -112,7 +123,7 @@ const sketch = function(p) {
     } else {
       // Only draw on the paper if the pen is still touching the paper.
       if (previousPen[PEN.DOWN] === 1) {
-        p.line(x, y, x+dx, y+dy); // Draw line connecting prev point to current point.
+        p.line(x, y, x+dx, y+dy);
       }
       // Update.
       x += dx;
@@ -146,29 +157,20 @@ const sketch = function(p) {
     previousPen = [0, 1, 0];
   };
 
-  function initRNNStateFromStrokes(sequence) {
-    // Initialize the RNN with these strokes.
-    encodeStrokes(sequence);
-    drawStrokes(sequence, startX, startY);
-  }
-
   function initModel(index) {
     modelLoaded = false;
+    document.getElementById('sketch').classList.add('loading');
+    
     if (model) {
       model.dispose();
     }
+    
     model = new ms.SketchRNN(`${BASE_URL}${availableModels[index]}.gen.json`);
-
-    Promise.all([model.initialize()]).then(function() {
+    model.initialize().then(() => {
       modelLoaded = true;
-      console.log('SketchRNN model loaded.');
-
-      // Initialize the scale factor for the model. Bigger -> large outputs
-      model.setPixelFactor(5.0);
-
-      if (strokes.length > 0) {
-        initRNNStateFromStrokes(strokes);
-      }
+      document.getElementById('sketch').classList.remove('loading');
+      console.log(`🤖 ${availableModels[index]} loaded.`);
+      model.setPixelFactor(5.0);  // Bigger -> large outputs
     });
   };
 
@@ -187,49 +189,13 @@ const sketch = function(p) {
     x = startX;
     y = startY;
 
+    // Update the pen state.
     const s = sequence[sequence.length-1];
     dx = s[0];
     dy = s[1];
     previousPen = [s[2], s[3], s[4]];
 
     modelIsActive = true;
-  }
-
-  // This is very similar to the p.draw() loop, but instead of
-  // sampling from the model, it uses the given set of strokes.
-  function drawStrokes(strokes, startX, startY) {
-    p.stroke(p.color(0,0,0));
-
-    let x = startX;
-    let y = startY;
-    let dx, dy;
-    let pen = [0,0,0];
-    let previousPen = [1,0,0];
-    for( let i = 0; i < strokes.length; i++) {
-      [dx, dy, ...pen] = strokes[i];
-
-      if (previousPen[PEN.END] === 1) { // End of drawing.
-        break;
-      }
-
-      // Only draw on the paper if the pen is still touching the paper.
-      if (previousPen[PEN.DOWN] === 1) {
-        p.line(x, y, x+dx, y+dy);
-      }
-      x += dx;
-      y += dy;
-      previousPen = pen;
-    }
-
-    // Draw in a random colour after the predefined strokes.
-    p.stroke(p.color(p.random(64, 224), p.random(64, 224), p.random(64, 224)));
-  };
-
-  function initDOMElements() {
-    // Listeners
-    selectModels.innerHTML = availableModels.map(m => `<option>${m}</option>`).join('');
-    selectModels.addEventListener('change', () => initModel(selectModels.selectedIndex));
-    btnClear.addEventListener('click', restart);
   }
 };
 

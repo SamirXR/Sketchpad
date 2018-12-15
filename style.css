@@ -58,6 +58,13 @@ select {
 }
 
 #sketch {
-  
+  flex-grow: 1;
+  overflow: hidden;
+}
+#sketch.loading {
+  pointer-events: none;
+  opacity: 0.3;
+  filter: blur(3px);
+}
 
 
