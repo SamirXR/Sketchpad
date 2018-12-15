@@ -18,6 +18,7 @@ const sketch = function(p) {
   let previousPen = [1, 0, 0]; // Previous model pen state.
   const PEN = {DOWN: 0, UP: 1, END: 2};
   const epsilon = 2.0; // to ignore data from user's pen staying in one spot.
+  let modelTry = []; // The 
   
   // Human drawing.
   let currentRawLine = [];
@@ -43,6 +44,7 @@ const sketch = function(p) {
     selectModels.selectedIndex = 22; 
     selectModels.addEventListener('change', () => initModel(selectModels.selectedIndex));
     btnClear.addEventListener('click', restart);
+    btnRetry.addEventListener('click', retryMagic);
   };
   
   p.windowResized = function () {
@@ -81,6 +83,7 @@ const sketch = function(p) {
         encodeStrokes(stroke);
       }
       currentRawLine = [];
+      modelTry = [];
       modelIsActive = true;
       previousUserPen = userPen;
     }
@@ -128,6 +131,7 @@ const sketch = function(p) {
       // Only draw on the paper if the pen is still touching the paper.
       if (previousPen[PEN.DOWN] === 1) {
         p.line(x, y, x+dx, y+dy);
+        modelTry.push([x, y, x+dx, y+dy]);
       }
       // Update.
       x += dx;
@@ -143,6 +147,14 @@ const sketch = function(p) {
   /*
   * Helpers.
   */
+  function retryMagic() {
+    p.stroke(255, 255, 255, 255);
+    for (let i = 0; i < modelTry.length; i++) {
+      p.line(modelTry[i]);
+    }
+    p.stroke(currentColor);
+  }
+  
   function restart() {
     p.background(255, 255, 255, 255);
     p.strokeWeight(3.0);
