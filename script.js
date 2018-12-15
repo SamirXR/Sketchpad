@@ -105,9 +105,12 @@ const sketch = function(p) {
       dy = p.pmouseY;
       userPen = 1;
       if (previousUserPen == 1) {
-        p.line(x, y, dx, dy);
+        p.line(x,y,dx,dy);
       }
+        
       currentRawLine.push([x, y]);
+      
+      p.line(x, y, dx, dy);
       previousUserPen = userPen;
     }
   }
