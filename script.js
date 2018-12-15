@@ -18,13 +18,14 @@ const sketch = function(p) {
   let previousPen = [1, 0, 0]; // Previous model pen state.
   const PEN = {DOWN: 0, UP: 1, END: 2};
   const epsilon = 2.0; // to ignore data from user's pen staying in one spot.
-  let modelTry = []; // The 
+  let lastModelTry = []; // The current model drawing, so that you can reverse it.
   
   // Human drawing.
   let currentRawLine = [];
   let userPen = 0; // above = 0 or below = 1 the paper.
   let previousUserPen = 0;
   let currentColor = 'black';
+  let lastHumanStroke;
   
   /*
    * Main p5 code
@@ -79,8 +80,8 @@ const sketch = function(p) {
       // If it's an accident...ignore it.
       if (currentRawLineSimplified.length > 1) {
         // Encode this line as a stroke, and feed it to the model.
-        const stroke = model.lineToStroke(currentRawLineSimplified, [startX, startY]);
-        encodeStrokes(stroke);
+        lastHumanStroke = model.lineToStroke(currentRawLineSimplified, [startX, startY]);
+        encodeStrokes(lastHumanStroke);
       }
       currentRawLine = [];
       modelTry = [];
@@ -131,7 +132,7 @@ const sketch = function(p) {
       // Only draw on the paper if the pen is still touching the paper.
       if (previousPen[PEN.DOWN] === 1) {
         p.line(x, y, x+dx, y+dy);
-        modelTry.push([x, y, x+dx, y+dy]);
+        lastModelTry.push([x, y, x+dx, y+dy]);
       }
       // Update.
       x += dx;
@@ -148,11 +149,30 @@ const sketch = function(p) {
   * Helpers.
   */
   function retryMagic() {
-    p.stroke(255, 255, 255, 255);
-    for (let i = 0; i < modelTry.length; i++) {
-      p.line(modelTry[i]);
+    p.stroke('white');
+    p.strokeWeight(6);
+    
+    // Undo the previous line the model drew.
+    for (let i = 0; i < lastModelTry.length; i++) {
+      p.line(...lastModelTry[i]);
     }
+    
+    // Undo the previous human drawn.
+    for (let i = 0; i < lastHumanDrawing.length; i++) {
+      p.line(...lastModelTry[i]);
+    }
+    
+    // Redraw the human drawing.
+    for (let i = 0; i < lastModelTry.length; i++) {
+      p.line(...lastModelTry[i]);
+    }
+    
+    // Start again.
+    p.strokeWeight(3.0);
     p.stroke(currentColor);
+    lastModelTry = [];
+    encodeStrokes(lastHumanStroke);
+    modelIsActive = true;
   }
   
   function restart() {
