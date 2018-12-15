@@ -149,6 +149,12 @@ const sketch = function(p) {
     return p.mouseX >= 0 && p.mouseY >= 0 && p.mouseX < p.width && p.mouseY < p.height;
   }
   
+  p.keyPressed = function() {
+    if (p.key == 's') {
+      p.saveCanvas('magic-sketchpad', 'jpg');
+    }
+  }
+  
   /*
   * Helpers.
   */
