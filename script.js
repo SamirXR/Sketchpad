@@ -89,29 +89,19 @@ const sketch = function(p) {
 
   p.mouseDragged = function () {
     if (!modelIsActive) {
-      // const dx0 = p.mouseX - x; 
-      // const dy0 = p.mouseY - y;
-      // //if (dx0*dx0+dy0*dy0 > epsilon*epsilon) { // Only if pen is not in same area.
-      //   dx = dx0;
-      //   dy = dy0;
-      //   userPen = 1;
-      //   
-      //   x += dx;
-      //   y += dy;
-      // //  currentRawLine.push([x, y]);
-      // }
-      x = p.mouseX;
-      y = p.mouseY;
-      dx = p.pmouseX;
-      dy = p.pmouseY;
-      userPen = 1;
-      if (previousUserPen == 1) {
-        p.line(x,y,dx,dy);
+      const dx0 = p.mouseX - x; 
+      const dy0 = p.mouseY - y;
+      if (dx0*dx0+dy0*dy0 > epsilon*epsilon) { // Only if pen is not in same area.
+        dx = dx0;
+        dy = dy0;
+        userPen = 1;
+        if (previousUserPen == 1) {
+          p.line(x, y, x+dx, y+dy); // draw line connecting prev point to current point.
+        }
+        x += dx;
+        y += dy;
+        currentRawLine.push([x, y]);
       }
-        
-      currentRawLine.push([x, y]);
-      
-      p.line(x, y, dx, dy);
       previousUserPen = userPen;
     }
   }
