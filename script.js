@@ -23,7 +23,7 @@ const sketch = function(p) {
   let currentRawLine = [];
   let userPen = 0; // above = 0 or below = 1 the paper.
   let previousUserPen = 0;
-  currentColor = 'black';
+  let currentColor = 'black';
   
   /*
    * Main p5 code
@@ -34,7 +34,7 @@ const sketch = function(p) {
     const screenWidth = Math.floor(containerSize.width);
     const screenHeight = Math.floor(containerSize.height);
     p.createCanvas(screenWidth, screenHeight);
-    p.frameRate(120);
+    p.frameRate(60);
 
     restart();
     initModel(22);  // Cat!
@@ -58,7 +58,6 @@ const sketch = function(p) {
   */
   p.mousePressed = function () {
     if (p.isInBounds()) {
-      
       x = startX = p.mouseX;
       y = startY = p.mouseY;
       userPen = 1; // down!
@@ -89,21 +88,28 @@ const sketch = function(p) {
 
   p.mouseDragged = function () {
     if (!modelIsActive && p.isInBounds()) {
-      const dx0 = p.mouseX - x; 
-      const dy0 = p.mouseY - y;
-      //if (dx0*dx0+dy0*dy0 > epsilon*epsilon) { // Only if pen is not in same area.
-        dx = dx0;
-        dy = dy0;
-        userPen = 1;
-        if (previousUserPen == 1) {
-          p.line(x, y, x+dx, y+dy);
-        }
-        x += dx;
-        y += dy;
-        currentRawLine.push([x, y]);
+      // const dx0 = p.mouseX - x; 
+      // const dy0 = p.mouseY - y;
+      // //if (dx0*dx0+dy0*dy0 > epsilon*epsilon) { // Only if pen is not in same area.
+      //   dx = dx0;
+      //   dy = dy0;
+      //   userPen = 1;
+      //   
+      //   x += dx;
+      //   y += dy;
+      // //  currentRawLine.push([x, y]);
+      // }
+      x = p.mouseX;
+      y = p.mouseY;
+      dx = p.pmouseX;
+      dy = p.pmouseY;
+      userPen = 1;
+      if (previousUserPen == 1) {
+        p.line(x, y, dx, dy);
       }
+      currentRawLine.push([x, y]);
       previousUserPen = userPen;
-    //}
+    }
   }
 
  /*
@@ -201,7 +207,6 @@ const sketch = function(p) {
     previousPen = [s[2], s[3], s[4]];
 
     modelIsActive = true;
-    //p.stroke(randomColor());
   }
   
   /*
