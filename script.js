@@ -67,6 +67,7 @@ const sketch = function(p) {
       previousUserPen = userPen;
       p.stroke(currentColor);
     }
+    return false;
   }
 
   p.mouseReleased = function () {
@@ -87,7 +88,7 @@ const sketch = function(p) {
   }
 
   p.mouseDragged = function () {
-    if (!modelIsActive && p.isInBounds()) {
+    if (!modelIsActive) {
       // const dx0 = p.mouseX - x; 
       // const dy0 = p.mouseY - y;
       // //if (dx0*dx0+dy0*dy0 > epsilon*epsilon) { // Only if pen is not in same area.
