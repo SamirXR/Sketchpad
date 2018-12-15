@@ -7,7 +7,7 @@ const sketch = function(p) {
 
   // Model state.
   let modelState; // Store the hidden states of rnn's neurons.
-  let temperature = 0.25; // Controls the amount of uncertainty of the model.
+  const temperature = 0.01; // Controls the amount of uncertainty of the model.
   let modelLoaded = false;
   let modelIsActive = false;
 
@@ -226,21 +226,10 @@ const sketch = function(p) {
   };
 
   function initDOMElements() {
-    // Setup the DOM bits.
-    textTemperature.textContent = inputTemperature.value = temperature;
-
     // Listeners
     selectModels.innerHTML = availableModels.map(m => `<option>${m}</option>`).join('');
     selectModels.addEventListener('change', () => initModel(selectModels.selectedIndex));
-    inputTemperature.addEventListener('change', () => {
-      temperature = parseFloat(inputTemperature.value);
-      textTemperature.textContent = temperature;
-    });
-    btnClear.addEventListener('click', restart)
-    btnRandom.addEventListener('click', () => {
-      selectModels.selectedIndex = Math.floor(Math.random() * availableModels.length);
-      initModel(selectModels.selectedIndex);
-    });
+    btnClear.addEventListener('click', restart);
   }
 };
 

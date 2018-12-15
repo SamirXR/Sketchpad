@@ -1,23 +1,32 @@
 body {
-  font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+  font-family: 'IBM Plex Mono', monospace;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
   --primary: #4545CC;
   --secondary: #8EE3C8;
 }
 
 * { box-sizing: border-box; }
 
+h1 {
+  color: var(--primary);
+  font-weight: normal;
+}
+
 header {
   background-color: #F19CC5;
-  box-shadow: 0px 5px 0px 1px rgba(0, 0, 0, 0.15);
   width: 100%;
-  padding: 22px 50px 22px 22px;
-
+  padding: 0 20px;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+  height: 84px;
+  border-bottom: 8px solid var(--secondary);
 }
 
 .box {
@@ -26,15 +35,17 @@ header {
   fill: var(--primary);
   background: white;
   box-shadow: 4px 4px 0 var(--primary);
-  margin: 0 24px;
+  margin: 0 16px;
   height: 40px;  
   border-radius: 5px;
+  transition: top 0.2s ease;
+  position: relative;
+  top: 0;
 }
 
 .box:active {
+  top: 4px;
   box-shadow: none;
-  margin-top: 4px;
-  margin-left: 4px;
 }
 
 button.icon {
@@ -42,5 +53,11 @@ button.icon {
 }
 
 select {
-  font-size: 24px;
+  font-family: inherit;
+  font-size: 22px;
 }
+
+#sketch {
+  
+
+
