@@ -43,7 +43,21 @@ const sketch = function(p) {
     selectModels.selectedIndex = 22; 
     selectModels.addEventListener('change', () => initModel(selectModels.selectedIndex));
     btnClear.addEventListener('click', restart);
-    btnColor.addEventListener('click', () => currentColor = randomColor());
+    btnColor.addEventListener('click', () => {
+      if (colorsContainer.classList.contains('hidden'))
+        colorsContainer.classList.remove('hidden');
+      else 
+        colorsContainer.classList.add('hidden');
+      currentColor = randomColor()
+    });
+    colorsContainer.addEventListener('click', (event) => {
+      const btn = event.path[0];
+      currentColor = COLORS[btn.dataset.index].hex;
+      document.querySelector('.active').classList.remove('active');
+      btn.classList.add('active');
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    });
   };
   
   p.windowResized = function () {
