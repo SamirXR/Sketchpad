@@ -3,23 +3,26 @@ const sketch = function(p) {
   const BASE_URL = 'https://storage.googleapis.com/quickdraw-models/sketchRNN/models/';
   const availableModels = ['bird', 'ant','ambulance','angel','alarm_clock','antyoga','backpack','barn','basket','bear','bee','beeflower','bicycle','book','brain','bridge','bulldozer','bus','butterfly','cactus','calendar','castle','cat','catbus','catpig','chair','couch','crab','crabchair','crabrabbitfacepig','cruise_ship','diving_board','dog','dogbunny','dolphin','duck','elephant','elephantpig','everything','eye','face','fan','fire_hydrant','firetruck','flamingo','flower','floweryoga','frog','frogsofa','garden','hand','hedgeberry','hedgehog','helicopter','kangaroo','key','lantern','lighthouse','lion','lionsheep','lobster','map','mermaid','monapassport','monkey','mosquito','octopus','owl','paintbrush','palm_tree','parrot','passport','peas','penguin','pig','pigsheep','pineapple','pool','postcard','power_outlet','rabbit','rabbitturtle','radio','radioface','rain','rhinoceros','rifle','roller_coaster','sandwich','scorpion','sea_turtle','sheep','skull','snail','snowflake','speedboat','spider','squirrel','steak','stove','strawberry','swan','swing_set','the_mona_lisa','tiger','toothbrush','toothpaste','tractor','trombone','truck','whale','windmill','yoga','yogabicycle'];
   let model;
-
+  
+  // Model
   let modelState; 
-  const temperature = 0.01; // Very low so that we draw very well.
+  const temperature = 0.1; // Very low so that we draw very well.
   let modelLoaded = false;
   let modelIsActive = false;
-
-  let dx, dy; // Offsets of the pen strokes, in pixels.
-  let x, y; // Absolute coordinates on the screen of where the pen is.
-  let startX, startY;
-  let userPen = 0; // above or below the paper
-  let previousUserPen = 0;
-  let pen = [0,0,0]; // Current pen state, [pen_down, pen_up, pen_end].
-  let previousPen = [1, 0, 0]; // Previous pen state.
+  
+  // Model pen state.
+  let dx, dy; 
+  let x, y; 
+  let startX, startY;  // Keep track of the first point of the last raw line.
+  let pen = [0,0,0]; // Model pen state, [pen_down, pen_up, pen_end].
+  let previousPen = [1, 0, 0]; // Previous model pen state.
   const PEN = {DOWN: 0, UP: 1, END: 2};
   const epsilon = 2.0; // to ignore data from user's pen staying in one spot.
-
+  
+  // Human drawing.
   let currentRawLine = [];
+  let userPen = 0; // above = 0 or below = 1 the paper.
+  let previousUserPen = 0;
   
   /*
    * Main p5 code
@@ -135,9 +138,10 @@ const sketch = function(p) {
   p.isInBounds = function () {
     return p.mouseX >= 0 && p.mouseY >= 0;
   }
-   /*
-   * Helpers.
-   */
+  
+  /*
+  * Helpers.
+  */
   function restart() {
     p.background(255, 255, 255, 255);
     p.strokeWeight(3.0);
@@ -196,7 +200,38 @@ const sketch = function(p) {
     previousPen = [s[2], s[3], s[4]];
 
     modelIsActive = true;
+    p.stroke(randomColor());
   }
+  
+  /*
+  * Colours.
+  */
+  const COLORS = [
+    { name: 'black', hex: '#000000'},
+    { name: 'red', hex: '#f44336'},
+    { name: 'pink', hex: '#E91E63'},
+    { name: 'purple', hex: '#9C27B0'},
+    { name: 'deeppurple', hex: '#673AB7'},
+    { name: 'indigo', hex: '#3F51B5'},
+    { name: 'blue', hex: '#2196F3'},
+    { name: 'lightblue', hex: '#03A9F4'},
+    { name: 'cyan', hex: '#00BCD4'},
+    { name: 'teal', hex: '#009688'},
+    { name: 'green', hex: '#4CAF50'},
+    { name: 'lightgreen', hex: '#8BC34A'},
+    { name: 'lime', hex: '#CDDC39'},
+    { name: 'yellow', hex: '#FFEB3B'},
+    { name: 'amber', hex: '#FFC107'},
+    { name: 'orange', hex: '#FF9800'},
+    { name: 'deeporange', hex: '#FF5722'},
+    { name: 'brown', hex: '#795548'},
+    { name: 'grey', hex: '#9E9E9E'}
+  ];
+  
+  function randomColor() {
+    return COLORS[Math.floor(Math.random() * COLORS.length)].hex
+  }
+
 };
 
 new p5(sketch, 'sketch');

@@ -21,12 +21,21 @@ header {
   background-color: #F19CC5;
   width: 100%;
   padding: 0 20px;
+  border-bottom: 8px solid var(--secondary);
+}
+
+header .top {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   height: 84px;
-  border-bottom: 8px solid var(--secondary);
+}
+
+#colorsContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
 }
 
 .box {
@@ -55,6 +64,7 @@ button.icon {
 select {
   font-family: inherit;
   font-size: 22px;
+  width: 255px;
 }
 
 #sketch {
