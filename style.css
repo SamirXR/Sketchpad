@@ -36,6 +36,10 @@ a:link, a:visited {
   font-weight: bold;
   border-bottom: 6px solid var(--secondary);
 }
+a:hover {
+  background: var(--secondary);
+  color: var(--primary);
+}
 
 header {
   background-color: #F19CC5;
@@ -54,7 +58,7 @@ header {
   padding: 40px;
   border-top: 10px solid var(--secondary);
   overflow: auto;
-  transition: .8s transform;
+  transition: 1s transform;
   transform: translate3d(0, 0, 0);
   z-index: 2;
 }
@@ -145,10 +149,19 @@ header .top {
   box-shadow: none;
 }
 
+.select-wrapper {
+  display: inline-block;
+  width: 255px;
+  overflow: hidden;
+}
+
 select {
+  text-transform: lowercase;
   font-family: inherit;
   font-size: 22px;
-  width: 255px;
+  background: transparent;
+  border: none;
+  color: var(--primary);
 }
 
 #sketch {
@@ -193,7 +206,7 @@ select {
     align-items: center;
     justify-content: space-around;
   }
-  .controls select {
+  .controls .select-wrapper {
     min-width: 0;
     font-size: 20px;
     flex-grow: 1;

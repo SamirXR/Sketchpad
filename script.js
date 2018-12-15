@@ -30,6 +30,8 @@ const sketch = function(p) {
   let lastHumanDrawing;
   let lastModelDrawing = [];
   
+  // Don't record mouse events when the splash is open.
+  let splashIsOpen = true;
   
   /*
    * Main p5 code
@@ -52,11 +54,14 @@ const sketch = function(p) {
     btnRetry.addEventListener('click', retryMagic);
     btnHelp.addEventListener('click', () => {
       splash.classList.remove('hidden');
-    //  sketch.style.pointerEvents = 'none';
+      splashIsOpen = true;
     });
     btnGo.addEventListener('click', () => {
-     // sketch.style.pointerEvents = 'auto';
+      splashIsOpen = false;
       splash.classList.add('hidden');
+    });
+    btnSave.addEventListener('click', () => {
+      p.saveCanvas('magic-sketchpad', 'jpg');
     });
   };
   
@@ -72,7 +77,7 @@ const sketch = function(p) {
   * Human is drawing.
   */
   p.mousePressed = function () {
-    if (p.isInBounds()) {
+    if (!splashIsOpen && p.isInBounds()) {
       x = startX = p.mouseX;
       y = startY = p.mouseY;
       userPen = 1; // down!
@@ -86,7 +91,7 @@ const sketch = function(p) {
   }
 
   p.mouseReleased = function () {
-    if (p.isInBounds()) {
+    if (!splashIsOpen && p.isInBounds()) {
       userPen = 0;  // Up!
       const currentRawLineSimplified = model.simplifyLine(currentRawLine);
 
@@ -102,7 +107,7 @@ const sketch = function(p) {
   }
 
   p.mouseDragged = function () {
-    if (!modelIsActive) {
+    if (!splashIsOpen && !modelIsActive && p.isInBounds()) {
       const dx0 = p.mouseX - x; 
       const dy0 = p.mouseY - y;
       if (dx0*dx0+dy0*dy0 > epsilon*epsilon) { // Only if pen is not in same area.
@@ -155,12 +160,6 @@ const sketch = function(p) {
 
   p.isInBounds = function () {
     return p.mouseX >= 0 && p.mouseY >= 0 && p.mouseX < p.width && p.mouseY < p.height;
-  }
-  
-  p.keyPressed = function() {
-    if (p.key == 's') {
-      p.saveCanvas('magic-sketchpad', 'jpg');
-    }
   }
   
   /*
@@ -223,7 +222,7 @@ const sketch = function(p) {
     model.initialize().then(() => {
       modelLoaded = true;
       document.getElementById('sketch').classList.remove('loading');
-      console.log(`🤖 ${availableModels[index]} loaded.`);
+      console.log(`🤖${availableModels[index]} loaded.`);
       model.setPixelFactor(5.0);  // Bigger -> large outputs
     });
   };
