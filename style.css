@@ -85,11 +85,14 @@ header {
   pointer-events: none;
 }
   
-header .top {
+header .wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+header .top {
   height: 84px;
 }
 
@@ -97,9 +100,10 @@ header .top {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   padding-bottom: 14px;
   flex-wrap: wrap;
+  max-width: 1000px;
 }
 
 #colorsContainer button {

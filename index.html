@@ -31,7 +31,7 @@
       </div>
     </div>
       <header>
-        <div class="top">
+        <div class="wrapper top">
           <div>
             <h1></h1>
           </div>
@@ -53,27 +53,34 @@
             </button>
           </div>
         </div>
-
-        <div id="colorsContainer">
-          <button data-index="0" style="background-color: rgb(0, 0, 0)" class="active" onclick="changeColor(event)"></button>
-          <button data-index="1" style="background-color: rgb(244, 67, 54)" onclick="changeColor(event)"></button>
-          <button data-index="2" style="background-color: rgb(233, 30, 99)" onclick="changeColor(event)"></button>
-          <button data-index="3" style="background-color: rgb(156, 39, 176)" onclick="changeColor(event)"></button>
-          <button data-index="4" style="background-color: rgb(103, 58, 183)" onclick="changeColor(event)"></button>
-          <button data-index="5" style="background-color: rgb(63, 81, 181)" onclick="changeColor(event)"></button>
-          <button data-index="6" style="background-color: rgb(33, 150, 243)" onclick="changeColor(event)"></button>
-          <button data-index="7" style="background-color: rgb(0, 188, 212)" onclick="changeColor(event)"></button>
-          <button data-index="8" style="background-color: rgb(0, 150, 136)" onclick="changeColor(event)"></button>
-          <button data-index="9" style="background-color: rgb(76, 175, 80)" onclick="changeColor(event)"></button>
-          <button data-index="10" style="background-color: rgb(139, 195, 74)" onclick="changeColor(event)"></button>
-          <button data-index="11" style="background-color: rgb(205, 220, 57)" onclick="changeColor(event)"></button>
-          <button data-index="12" style="background-color: rgb(255, 235, 59)" onclick="changeColor(event)"></button>
-          <button data-index="13" style="background-color: rgb(255, 193, 7)" onclick="changeColor(event)"></button>
-          <button data-index="14" style="background-color: rgb(255, 152, 0)" onclick="changeColor(event)"></button>
-          <button data-index="15" style="background-color: rgb(255, 87, 34)" onclick="changeColor(event)"></button>
-          <button data-index="16" style="background-color: rgb(121, 85, 72)" onclick="changeColor(event)"></button>
-          <button data-index="17" style="background-color: rgb(158, 158, 158)" onclick="changeColor(event)"></button>
+        
+        <div class="wrapper">
+          <div>
+            <h1></h1>
+          </div>
+          <div id="colorsContainer">
+            <button data-index="0" style="background-color: rgb(0, 0, 0)" class="active" onclick="changeColor(event)"></button>
+            <button data-index="1" style="background-color: rgb(244, 67, 54)" onclick="changeColor(event)"></button>
+            <button data-index="2" style="background-color: rgb(233, 30, 99)" onclick="changeColor(event)"></button>
+            <button data-index="3" style="background-color: rgb(156, 39, 176)" onclick="changeColor(event)"></button>
+            <button data-index="4" style="background-color: rgb(103, 58, 183)" onclick="changeColor(event)"></button>
+            <button data-index="5" style="background-color: rgb(63, 81, 181)" onclick="changeColor(event)"></button>
+            <button data-index="6" style="background-color: rgb(33, 150, 243)" onclick="changeColor(event)"></button>
+            <button data-index="7" style="background-color: rgb(0, 188, 212)" onclick="changeColor(event)"></button>
+            <button data-index="8" style="background-color: rgb(0, 150, 136)" onclick="changeColor(event)"></button>
+            <button data-index="9" style="background-color: rgb(76, 175, 80)" onclick="changeColor(event)"></button>
+            <button data-index="10" style="background-color: rgb(139, 195, 74)" onclick="changeColor(event)"></button>
+            <button data-index="11" style="background-color: rgb(205, 220, 57)" onclick="changeColor(event)"></button>
+            <button data-index="12" style="background-color: rgb(255, 235, 59)" onclick="changeColor(event)"></button>
+            <button data-index="13" style="background-color: rgb(255, 193, 7)" onclick="changeColor(event)"></button>
+            <button data-index="14" style="background-color: rgb(255, 152, 0)" onclick="changeColor(event)"></button>
+            <button data-index="15" style="background-color: rgb(255, 87, 34)" onclick="changeColor(event)"></button>
+            <button data-index="16" style="background-color: rgb(121, 85, 72)" onclick="changeColor(event)"></button>
+            <button data-index="17" style="background-color: rgb(158, 158, 158)" onclick="changeColor(event)"></button>
+          </div>
         </div>
+
+        
       </header>
       
       <div id="sketch" class="loading"></div>
