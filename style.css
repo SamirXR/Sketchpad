@@ -30,6 +30,13 @@ header {
   padding: 0 20px;
   border-bottom: 8px solid var(--secondary);
 }
+#splash {
+  background-color: #F19CC5;
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+}
+  
 
 header .top {
   display: flex;
@@ -53,7 +60,7 @@ header .top {
   min-height: 30px;
   border: 4px solid transparent;
   border-radius: 50%;
-  margin: 2px;
+  margin: 4px 2px;
   padding: 0;
   will-change: transform;
   transition: transform 0.2 ease;

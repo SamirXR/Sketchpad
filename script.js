@@ -18,14 +18,18 @@ const sketch = function(p) {
   let previousPen = [1, 0, 0]; // Previous model pen state.
   const PEN = {DOWN: 0, UP: 1, END: 2};
   const epsilon = 2.0; // to ignore data from user's pen staying in one spot.
-  let lastModelTry = []; // The current model drawing, so that you can reverse it.
   
   // Human drawing.
   let currentRawLine = [];
   let userPen = 0; // above = 0 or below = 1 the paper.
   let previousUserPen = 0;
   let currentColor = 'black';
+  
+  // Keep track of everyone's last attempts to that we can reverse them.
   let lastHumanStroke;
+  let lastHumanDrawing;
+  let lastModelDrawing = [];
+  
   
   /*
    * Main p5 code
@@ -67,6 +71,7 @@ const sketch = function(p) {
 
       modelIsActive = false;
       currentRawLine = [];
+      lastHumanDrawing = [];
       previousUserPen = userPen;
       p.stroke(currentColor);
     }
@@ -84,8 +89,6 @@ const sketch = function(p) {
         encodeStrokes(lastHumanStroke);
       }
       currentRawLine = [];
-      modelTry = [];
-      modelIsActive = true;
       previousUserPen = userPen;
     }
   }
@@ -100,6 +103,7 @@ const sketch = function(p) {
         userPen = 1;
         if (previousUserPen == 1) {
           p.line(x, y, x+dx, y+dy); // draw line connecting prev point to current point.
+          lastHumanDrawing.push([x, y, x+dx, y+dy]);
         }
         x += dx;
         y += dy;
@@ -132,7 +136,7 @@ const sketch = function(p) {
       // Only draw on the paper if the pen is still touching the paper.
       if (previousPen[PEN.DOWN] === 1) {
         p.line(x, y, x+dx, y+dy);
-        lastModelTry.push([x, y, x+dx, y+dy]);
+        lastModelDrawing.push([x, y, x+dx, y+dy]);
       }
       // Update.
       x += dx;
@@ -153,26 +157,25 @@ const sketch = function(p) {
     p.strokeWeight(6);
     
     // Undo the previous line the model drew.
-    for (let i = 0; i < lastModelTry.length; i++) {
-      p.line(...lastModelTry[i]);
+    for (let i = 0; i < lastModelDrawing.length; i++) {
+      p.line(...lastModelDrawing[i]);
     }
     
     // Undo the previous human drawn.
     for (let i = 0; i < lastHumanDrawing.length; i++) {
-      p.line(...lastModelTry[i]);
+      p.line(...lastHumanDrawing[i]);
     }
     
+    p.strokeWeight(3.0);
+    p.stroke(currentColor);
+    
     // Redraw the human drawing.
-    for (let i = 0; i < lastModelTry.length; i++) {
-      p.line(...lastModelTry[i]);
+    for (let i = 0; i < lastHumanDrawing.length; i++) {
+      p.line(...lastHumanDrawing[i]);
     }
     
     // Start again.
-    p.strokeWeight(3.0);
-    p.stroke(currentColor);
-    lastModelTry = [];
     encodeStrokes(lastHumanStroke);
-    modelIsActive = true;
   }
   
   function restart() {
@@ -232,6 +235,8 @@ const sketch = function(p) {
     dy = s[1];
     previousPen = [s[2], s[3], s[4]];
 
+    
+    lastModelDrawing = [];
     modelIsActive = true;
   }
   
