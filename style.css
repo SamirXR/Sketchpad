@@ -43,15 +43,28 @@ header .top {
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 14px;
 }
 
 #colorsContainer button {
-  
-  width: calc(100% / 12);
-  border: none;
+  width: 30px;
+  height: 30px;
+  border: 4px solid transparent;
+  border-radius: 50%;
   margin: 0;
   padding: 0;
+  will-change: transform;
+  transition: transform 0.2 ease;
 }
+#colorsContainer button.active {
+  border: 4px solid white;
+}
+#colorsContainer button:hover { 
+  transform: scale(1.4);
+}
+
 .box {
   border: solid var(--primary) 2px;
   color: var(--primary);

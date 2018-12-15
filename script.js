@@ -23,6 +23,7 @@ const sketch = function(p) {
   let currentRawLine = [];
   let userPen = 0; // above = 0 or below = 1 the paper.
   let previousUserPen = 0;
+  let currentColor = 'black';
   
   /*
    * Main p5 code
@@ -42,6 +43,7 @@ const sketch = function(p) {
     selectModels.selectedIndex = 22; 
     selectModels.addEventListener('change', () => initModel(selectModels.selectedIndex));
     btnClear.addEventListener('click', restart);
+    btnColor.addEventListener('click', () => currentColor = randomColor());
   };
   
   p.windowResized = function () {
@@ -57,6 +59,7 @@ const sketch = function(p) {
   */
   p.mousePressed = function () {
     if (p.isInBounds()) {
+      
       x = startX = p.mouseX;
       y = startY = p.mouseY;
       userPen = 1; // down!
@@ -64,14 +67,13 @@ const sketch = function(p) {
       modelIsActive = false;
       currentRawLine = [];
       previousUserPen = userPen;
-      p.stroke(p.color(0,0,0));  // User always draws in black.
+      p.stroke(currentColor);
     }
   }
 
   p.mouseReleased = function () {
     if (p.isInBounds()) {
       userPen = 0;  // Up!
-
       const currentRawLineSimplified = model.simplifyLine(currentRawLine);
 
       // If it's an accident...ignore it.
@@ -81,9 +83,9 @@ const sketch = function(p) {
         encodeStrokes(stroke);
       }
       currentRawLine = [];
+      modelIsActive = true;
+      previousUserPen = userPen;
     }
-    modelIsActive = true;
-    previousUserPen = userPen;
   }
 
   p.mouseDragged = function () {
@@ -136,7 +138,7 @@ const sketch = function(p) {
   };
 
   p.isInBounds = function () {
-    return p.mouseX >= 0 && p.mouseY >= 0;
+    return p.mouseX >= 0 && p.mouseY >= 0 && p.mouseX < p.width && p.mouseY < p.height;
   }
   
   /*
