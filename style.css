@@ -1,11 +1,18 @@
-body {
-  font-family: 'IBM Plex Mono', monospace;
+html, body {
+  height: 90%;
+  width: 100%;
+  overflow: hidden;
   margin: 0;
   padding: 0;
+  position: fixed;
+  overscroll-behavior-y: contain;
+}
+
+body {
+  font-family: 'IBM Plex Mono', monospace;
+  -webkit-font-smoothing: antialiased;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  overflow: hidden;
   --primary: #4545CC;
   --secondary: #8EE3C8;
 }
@@ -38,6 +45,13 @@ header .top {
   flex-direction: row;
 }
 
+#colorsContainer button {
+  
+  width: calc(100% / 12);
+  border: none;
+  margin: 0;
+  padding: 0;
+}
 .box {
   border: solid var(--primary) 2px;
   color: var(--primary);
