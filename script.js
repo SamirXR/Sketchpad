@@ -43,12 +43,6 @@ const sketch = function(p) {
     selectModels.selectedIndex = 22; 
     selectModels.addEventListener('change', () => initModel(selectModels.selectedIndex));
     btnClear.addEventListener('click', restart);
-    btnColor.addEventListener('click', () => {
-      const color = randomColorIndex();
-      currentColor = COLORS[color].hex;
-      document.querySelector('.active').classList.remove('active');
-      document.querySelector(`button[data-index="${color}"]`).classList.add('active');
-    });
     colorsContainer.addEventListener('click', (event) => {
       const btn = event.path[0];
       currentColor = COLORS[btn.dataset.index].hex;
