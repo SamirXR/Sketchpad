@@ -34,7 +34,7 @@ a:link, a:visited {
   text-decoration: none;
   color: white;
   font-weight: bold;
-  border-bottom: 6px solid var(--secondary);
+  border-bottom: 4px solid var(--secondary);
 }
 a:hover {
   background: var(--secondary);
@@ -123,6 +123,11 @@ header .top {
   transform: scale(1.4);
 }
 
+.controls {
+  display: flex;
+  flex-direction: row;
+}
+
 .box {
   border: solid var(--primary) 2px;
   color: var(--primary);
@@ -139,6 +144,7 @@ header .top {
   text-transform: uppercase;
   font-family: inherit;
   font-weight: bold;
+  margin: 0 4px;
 }
 
 .big {
@@ -157,15 +163,23 @@ header .top {
   display: inline-block;
   width: 255px;
   overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 4px;
 }
 
 select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
   text-transform: lowercase;
   font-family: inherit;
   font-size: 22px;
   background: transparent;
   border: none;
   color: var(--primary);
+  width: 100%;
 }
 
 #sketch {
