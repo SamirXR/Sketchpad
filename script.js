@@ -248,7 +248,6 @@ const sketch = function(p) {
     dy = s[1];
     previousPen = [s[2], s[3], s[4]];
 
-    
     lastModelDrawing = [];
     modelIsActive = true;
   }
