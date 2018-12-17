@@ -4,6 +4,5 @@ Draw things with machines! Every time you start drawing a doodle, a machine lear
           
 ## Deets
 - built with [magenta.js](https://magenta.tensorflow.org)
-- 
-          Learn more about <a target="_blank" href="https://magenta.tensorflow.org/pianogenie">Sketch RNN</a>,
-          or see the code on <a target="_blank" href="https://glitch.com/edit/#!/magic-sketchpad">Glitch</a>.
+- using [SketchRNN](https://magenta.tensorflow.org/sketch-rnn-demo)
+- using the [Quick, Draw!](https://quickdraw.withgoogle.com/data) dataset
