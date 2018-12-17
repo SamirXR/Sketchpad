@@ -26,9 +26,9 @@ const sketch = function(p) {
   let currentColor = 'black';
   
   // Keep track of everyone's last attempts to that we can reverse them.
-  let lastHumanStroke;
-  let lastHumanDrawing;
-  let lastModelDrawing = [];
+  let lastHumanStroke;  // encode the human's drawing as a sequence of [dx, dy, penState] strokes
+  let lastHumanDrawing; // the actual sequence of lines that the human drew, so we can replay them.
+  let lastModelDrawing = []; // the actual sequence of lines that the model drew, so that we can erase them.
   
   // Don't record mouse events when the splash is open.
   let splashIsOpen = true;
@@ -239,8 +239,10 @@ const sketch = function(p) {
 
     // Reset the actual model we're using to this one that has the encoded strokes.
     modelState = model.copyState(newState);
-    x = startX;
-    y = startY;
+    
+    const lastHumanLine = lastHumanDrawing[lastHumanDrawing.length-1];
+    x = lastHumanLine[0];
+    y = lastHumanLine[1];
 
     // Update the pen state.
     const s = sequence[sequence.length-1];
