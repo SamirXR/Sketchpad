@@ -14,7 +14,7 @@ body {
   display: flex;
   flex-direction: column;
   --primary: #4545CC;
-  --secondary: #8EE3C8;
+  --secondary: #FFFFFFCC;
 }
 
 * { box-sizing: border-box; }
