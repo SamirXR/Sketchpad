@@ -2,7 +2,7 @@ Magic Sketchpad :)
 =================
 Draw things with Machines! Every time you lift your pen up, a machine learning algorithm tries to finish that stroke and match the category you've selected. Try drawing multiple categories on the same page!
 
-
+`LIVE DEMO` : [Click here](https://spotless-bubble-daughter.glitch.me)
           
 - Built with [Magenta.js](https://magenta.tensorflow.org)
 - Using [SketchRNN](https://magenta.tensorflow.org/sketch-rnn-demo)
