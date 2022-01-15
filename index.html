@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <link rel="icon" href="https://cdn.glitch.com/c3748c53-d45d-4c3b-9c3d-671636e5ca9c%2Faf3ed5b280f49f3546dbb7083166a5d7.png?v=1631629310370">
-    <meta name="description" content="Draw things with machines! Every time you lift your pen up, a machine learning algorithm tries to finish that stroke and match the category you've selected. Try drawing multiple categories on the same page!
-" />
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="stylesheet" href="./style.css">
-    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700" rel="stylesheet">
+    <meta charset="utf-8" />
+    <link
+      rel="icon"
+      href="https://cdn.discordapp.com/attachments/913760038361890867/931879891417317386/show.png"
+    />
+    <meta
+      name="description"
+      content="Draw things with machines! Every time you lift your pen up, a machine learning algorithm tries to finish that stroke and match the category you've selected. Try drawing multiple categories on the same page!
+"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no"
+    />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700"
+      rel="stylesheet"
+    />
     <title>:)</title>
   </head>
   <body>
@@ -18,75 +33,209 @@
       <div class="content">
         <h1>SKETCHPAD :)</h1>
         <p>
-          Draw things with machines! Every time you <b>lift your pen up</b>, a machine learning algorithm
-          tries to finish that stroke and match the category you've selected. Try drawing multiple categories on the same page!
+          Draw things with machines! Every time you <b>lift your pen up</b>, a
+          machine learning algorithm tries to finish that stroke and match the
+          category you've selected. Try drawing multiple categories on the same
+          page!
         </p>
-          
-        <button class="box big" id="btnGo">
-          Let's go!
-        </button>
+
+        <button class="box big" id="btnGo">Let's go!</button>
         <p class="built-with">
-        Built by <a target="_blank" href="https://twitter.com/notwaldorf">@notwaldorf</a> with <a target="_blank" href="https://magenta.tensorflow.org">magenta.js</a>. 
-          Learn more about <a target="_blank" href="https://magenta.tensorflow.org/sketch-rnn-demo">Sketch RNN</a>,
-          or see the code on <a target="_blank" href="https://glitch.com/edit/#!/magic-sketchpad">Glitch</a>.
+          Built by
+          <a target="_blank" href="https://www.instagram.com/lolwtf139/"
+            >@lolwtf139</a
+          >
+          with
+          <a target="_blank" href="https://magenta.tensorflow.org">magenta.js</a
+          >. Learn more about
+          <a
+            target="_blank"
+            href="https://magenta.tensorflow.org/sketch-rnn-demo"
+            >Sketch RNN</a
+          >, or see the code on
+          <a target="_blank" href="https://github.com/user/xr7-samir"
+            >Github</a
+          >.
         </p>
       </div>
     </div>
-      <header>
-        <div class="wrapper top">
-          <div>
-            <h1></h1>
-          </div>
-          <div class="controls">
-            <button class="box" id="btnClear" alt="clear drawing">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/><path fill="none" d="M0 0h24v24H0z"/></svg>
-            </button>
-            <button class="box" id="btnRetry" alt="retry magic drawing">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
-            </button>
-            
-            <div class="box select-wrapper">
-              <select id="selectModels"></select>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
-            </div>
-            
-            <button class="box" id="btnSave" alt="save sketch">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
-            </button>
-            <button class="box" id="btnHelp" alt="show help">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
-            </button>
-          </div>
+    <header>
+      <div class="wrapper top">
+        <div>
+          <h1></h1>
         </div>
-        
-        <div class="wrapper">
-          <div>
-            <h1></h1>
+        <div class="controls">
+          <button class="box" id="btnClear" alt="clear drawing">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path fill="none" d="M0 0h24v24H0V0z" />
+              <path
+                d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"
+              />
+              <path fill="none" d="M0 0h24v24H0z" />
+            </svg>
+          </button>
+          <button class="box" id="btnRetry" alt="retry magic drawing">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
+              />
+            </svg>
+          </button>
+
+          <div class="box select-wrapper">
+            <select id="selectModels"></select>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path d="M7 10l5 5 5-5z" />
+              <path d="M0 0h24v24H0z" fill="none" />
+            </svg>
           </div>
-          <div id="colorsContainer">
-            <button data-index="0" style="background-color: rgb(0, 0, 0)" class="active" onclick="changeColor(event)"></button>
-            <button data-index="1" style="background-color: rgb(244, 67, 54)" onclick="changeColor(event)"></button>
-            <button data-index="2" style="background-color: rgb(233, 30, 99)" onclick="changeColor(event)"></button>
-            <button data-index="3" style="background-color: rgb(156, 39, 176)" onclick="changeColor(event)"></button>
-            <button data-index="4" style="background-color: rgb(103, 58, 183)" onclick="changeColor(event)"></button>
-            <button data-index="5" style="background-color: rgb(63, 81, 181)" onclick="changeColor(event)"></button>
-            <button data-index="6" style="background-color: rgb(33, 150, 243)" onclick="changeColor(event)"></button>
-            <button data-index="7" style="background-color: rgb(0, 188, 212)" onclick="changeColor(event)"></button>
-            <button data-index="8" style="background-color: rgb(0, 150, 136)" onclick="changeColor(event)"></button>
-            <button data-index="9" style="background-color: rgb(76, 175, 80)" onclick="changeColor(event)"></button>
-            <button data-index="10" style="background-color: rgb(139, 195, 74)" onclick="changeColor(event)"></button>
-            <button data-index="11" style="background-color: rgb(205, 220, 57)" onclick="changeColor(event)"></button>
-            <button data-index="12" style="background-color: rgb(255, 235, 59)" onclick="changeColor(event)"></button>
-            <button data-index="13" style="background-color: rgb(255, 193, 7)" onclick="changeColor(event)"></button>
-            <button data-index="14" style="background-color: rgb(255, 152, 0)" onclick="changeColor(event)"></button>
-            <button data-index="15" style="background-color: rgb(255, 87, 34)" onclick="changeColor(event)"></button>
-            <button data-index="16" style="background-color: rgb(121, 85, 72)" onclick="changeColor(event)"></button>
-            <button data-index="17" style="background-color: rgb(158, 158, 158)" onclick="changeColor(event)"></button>
-          </div>
+
+          <button class="box" id="btnSave" alt="save sketch">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"
+              />
+            </svg>
+          </button>
+          <button class="box" id="btnHelp" alt="show help">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+              />
+            </svg>
+          </button>
         </div>
-      </header>
-      
-      <div id="sketch" class="loading"></div>
+      </div>
+
+      <div class="wrapper">
+        <div>
+          <h1></h1>
+        </div>
+        <div id="colorsContainer">
+          <button
+            data-index="0"
+            style="background-color: rgb(0, 0, 0)"
+            class="active"
+            onclick="changeColor(event)"
+          ></button>
+          <button
+            data-index="1"
+            style="background-color: rgb(244, 67, 54)"
+            onclick="changeColor(event)"
+          ></button>
+          <button
+            data-index="2"
+            style="background-color: rgb(233, 30, 99)"
+            onclick="changeColor(event)"
+          ></button>
+          <button
+            data-index="3"
+            style="background-color: rgb(156, 39, 176)"
+            onclick="changeColor(event)"
+          ></button>
+          <button
+            data-index="4"
+            style="background-color: rgb(103, 58, 183)"
+            onclick="changeColor(event)"
+          ></button>
+          <button
+            data-index="5"
+            style="background-color: rgb(63, 81, 181)"
+            onclick="changeColor(event)"
+          ></button>
+          <button
+            data-index="6"
+            style="background-color: rgb(33, 150, 243)"
+            onclick="changeColor(event)"
+          ></button>
+          <button
+            data-index="7"
+            style="background-color: rgb(0, 188, 212)"
+            onclick="changeColor(event)"
+          ></button>
+          <button
+            data-index="8"
+            style="background-color: rgb(0, 150, 136)"
+            onclick="changeColor(event)"
+          ></button>
+          <button
+            data-index="9"
+            style="background-color: rgb(76, 175, 80)"
+            onclick="changeColor(event)"
+          ></button>
+          <button
+            data-index="10"
+            style="background-color: rgb(139, 195, 74)"
+            onclick="changeColor(event)"
+          ></button>
+          <button
+            data-index="11"
+            style="background-color: rgb(205, 220, 57)"
+            onclick="changeColor(event)"
+          ></button>
+          <button
+            data-index="12"
+            style="background-color: rgb(255, 235, 59)"
+            onclick="changeColor(event)"
+          ></button>
+          <button
+            data-index="13"
+            style="background-color: rgb(255, 193, 7)"
+            onclick="changeColor(event)"
+          ></button>
+          <button
+            data-index="14"
+            style="background-color: rgb(255, 152, 0)"
+            onclick="changeColor(event)"
+          ></button>
+          <button
+            data-index="15"
+            style="background-color: rgb(255, 87, 34)"
+            onclick="changeColor(event)"
+          ></button>
+          <button
+            data-index="16"
+            style="background-color: rgb(121, 85, 72)"
+            onclick="changeColor(event)"
+          ></button>
+          <button
+            data-index="17"
+            style="background-color: rgb(158, 158, 158)"
+            onclick="changeColor(event)"
+          ></button>
+        </div>
+      </div>
+    </header>
+
+    <div id="sketch" class="loading"></div>
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@magenta/sketch@0.1.3/dist/magentasketch.min.js"></script>
